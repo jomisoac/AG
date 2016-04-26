@@ -1,4 +1,4 @@
-<div ng-controller="nodosController as vm" class="contenedor">
+<div ng-controller="mostrarController as vm" class="contenedor">
     <div class="row">
         <div class="col s12" >
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
@@ -19,24 +19,26 @@
                         <div class="col s12">
                             <table class="striped bordered responsive-table">
                                 <thead>
-                                <th style="color: #D50000; text-align: center">Id</th>
-                                <th style="color: #D50000; text-align: center">Nombre del nodo</th>
-                                <th style="color: #D50000; text-align: center">Cantidad de rutas</th>
+                                <th style="color: #D50000; text-align: center">Nodo origen</th>
+                                <th style="color: #D50000; text-align: center">Nodo destino</th>
+                                <th style="color: #D50000; text-align: center">Distancia (Km)</th>
+                                <th style="color: #D50000; text-align: center">Tiempo de recorrido (horas)</th>
                                 <th colspan="2"></th>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="nodo in vm.nodos | filter : filtro">
-                                    <td style="text-align: center">{{nodo.id}}</td>
-                                    <td style="text-align: center">{{nodo.nombre_nodo}}</td>
-                                    <td style="text-align: center">{{nodo.n_rutas}}</td>
+                                <tr ng-repeat="ruta in vm.rutas | filter : filtro">
+                                    <td style="text-align: center">{{ruta.origen}}</td>
+                                    <td style="text-align: center">{{ruta.destino}}</td>
+                                    <td style="text-align: center">{{ruta.distancia}} {{'Km'}}</td>
+                                    <td style="text-align: center">{{ruta.tiempo}} {{'H'}}</td>
                                     <td style="text-align: center">
-                                        <a title="Modificar ruta" href="javascript:" ng-click="vm.actualizar(nodo)">
+                                        <a title="Modificar ruta" href="javascript:" ng-click="vm.actualizar(ruta)">
                                             <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
                                         </a>
-                                        <a title="Crear ruta" href="javascript:" ng-click="vm.nuevaRuta(nodo)">
+                                        <a title="Crear ruta" href="javascript:" ng-click="vm.nuevaRuta(ruta)">
                                             <i style="color: black" class="material-icons prefix">transform</i>
                                         </a>
-                                        <a title="Eliminar ruta" href="javascript:" ng-click="vm.eliminar(nodo.id)">
+                                        <a title="Eliminar ruta" href="javascript:" ng-click="vm.eliminar(ruta.id)">
                                             <i style="color: #D50000" class="material-icons prefix">delete</i>
                                         </a>
                                     </td>
@@ -134,7 +136,7 @@
                                 <i style="color: #D50000"class="material-icons prefix">av_timer</i>
                                 <input id="tiempo" name="nombre" type="number" ng-model="vm.ruta.tiempo"
                                        required>
-                                <label for="tiempo" class="{{vm.active}}">Tiempo estimado de llegana en horas</label>
+                                <label for="tiempo" class="{{vm.active}}">Tiempo estimado de llegana en minutos</label>
                             </div>
                         </div>
                     </div>

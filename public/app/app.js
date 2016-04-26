@@ -9,7 +9,8 @@
             //'google-maps',
 
             //app modules
-            'app.nodos'
+            'app.nodos',
+            'app.rutas'
         ])
         .constant('API', '../api')
         .config(config)

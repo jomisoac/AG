@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('app.nodos.nuevo')
-        .controller('nodosController', nodosController);
+        .module('app.rutas.mostrar')
+        .controller('mostrarController', mostrarController);
 
-    function nodosController(nodosService) {
+    function mostrarController(rutasService) {
         var vm = this;
         vm.nodo = {};
         vm.ruta = {};
@@ -14,25 +14,25 @@
         vm.active = "";
 
         //funciones
-        vm.nuevo = nuevo;
-        vm.guardar = guardar;
         vm.actualizar = actualizar;
         vm.update = update;
         vm.eliminar = eliminar;
-        //funciones rutas
-        vm.nuevaRuta = nuevaRuta;
-        vm.guardarRuta = guardarRuta;
         
         init();
         function init() {
-            vm.nodos = [];
-            loadNodos();
+            vm.rutas = [];
+            loadRutas();
         }
 
-        function loadNodos() {
-            nodosService.getAll().then(success, error);
+        function loadRutas() {
+            rutasService.getAll().then(success, error);
             function success(p) {
-                vm.nodos = p.data;
+                for (var i = 0; i < p.data.length; i++){
+                    if(p.data[i].rutas != 0){
+                        vm.rutas.push(p.data[i]);
+                    }
+                }
+                console.log(vm.rutas)
             }
 
             function error(error) {
@@ -40,16 +40,8 @@
             }
         }
 
-        function nuevo() {
-            vm.nodo = {}
-            vm.nombreForm = "Nueva nodo";
-            vm.active = "";
-            vm.editMode = false;
-            $("#modalNuevoNodo").openModal();
-        }
-
         function guardar() {
-            nodosService.post(vm.nodo).then(success, error);
+            rutasService.post(vm.nodo).then(success, error);
             function success(p) {
                 $("#modalNuevoNodo").closeModal();
                 init();
@@ -61,17 +53,17 @@
             }
         }
 
-        function actualizar(nodo) {
-            vm.nodo = nodo;
+        function actualizar(ruta) {
+            vm.ruta = ruta;
             vm.editMode = true;
-            vm.nombreForm = "Modificar nodo";
+            vm.nombreForm = "Modificar ruta";
             vm.active = "active";
             $("#modalNuevoNodo").openModal();
         }
 
 
         function update() {
-            nodosService.put(vm.nodo, vm.nodo.id).then(success, error);
+            rutasService.put(vm.ruta, vm.ruta.id).then(success, error);
             function success(p) {
                 $("#modalNuevoNodo").closeModal();
                 vm.editMode = false;
@@ -87,7 +79,7 @@
         function eliminar(codigo) {
             swal({
                 title: 'ESTAS SEGURO?',
-                text: 'Si eliminas este nodo se eliminaran las rutas asociadas a el!',
+                text: 'Si eliminas este ruta se eliminaran las rutas asociadas a el!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
@@ -97,14 +89,14 @@
                 closeOnConfirm: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    nodosService.delete(codigo).then(success, error);
+                    rutasService.delete(codigo).then(success, error);
                     swal.disableButtons();
                 }
                 function success(p) {
                     setTimeout(function () {
                         swal({
                             title: 'Exito!',
-                            text: 'Nodo eliminado correctamente',
+                            text: 'Ruta eliminado correctamente',
                             type: 'success',
                             showCancelButton: false,
                         }, function () {
@@ -115,7 +107,7 @@
                 function error(error) {
                     swal({
                         title: 'Error!',
-                        text: 'No se pudo eliminar el nodo',
+                        text: 'No se pudo eliminar el ruta',
                         type: 'error',
                         showCancelButton: false,
                     }, function () {
@@ -124,10 +116,10 @@
             });
         }
 
-        function nuevaRuta(nodo_origen) {
+        function nuevaRuta(ruta_origen) {
             vm.ruta = {}
-            vm.nodo = nodo_origen;
-            vm.ruta.id_nodo_origen = nodo_origen.id;
+            vm.ruta = ruta_origen;
+            vm.ruta.id_ruta_origen = ruta_origen.id;
             vm.nombreForm = "Nueva ruta";
             vm.active = "active";
             vm.editMode = false;
@@ -135,11 +127,12 @@
         }
         
         function guardarRuta() {
-            vm.ruta.id_nodo_destino = vm.nodo_destino.id;
+            vm.ruta.id_ruta_destino = vm.ruta_destino.id;
 
-            nodosService.postRuta(vm.ruta).then(success, error);
+            rutasService.postRuta(vm.ruta).then(success, error);
             function success(p) {
                 $("#modalRutas").closeModal();
+                init();
                 Materialize.toast('Ruta creada correctamente', 5000);
             }
             function error(error) {

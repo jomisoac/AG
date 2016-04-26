@@ -2,18 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Nodos;
 use App\Rutas;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
+
 
 class RutasController extends Controller
 {
     public function getRutas(){
-        $rutas = Rutas::all();
+        $tnodos = Nodos::all();
+        $rutas = [];
+        foreach ($tnodos as $nodo){
+            foreach ($nodo->rutas as $ruta) {
+                $rutas[] = [
+                    'id' => $ruta->id,
+                    'destino' => $ruta->destino->nombre_nodo,
+                    'origen' => $nodo->nombre_nodo,
+                    'distancia' => $ruta->distancia,
+                    'tiempo' => $ruta->tiempo,
+                    'estado_via' => $ruta->estado_via,
+                    'condiciones_via' => $ruta->condiciones_via,
+                    'tipo_via' => $ruta->tipo_via,
+                    'seguridad_via' => $ruta->seguridad_via,
+                    'cantidad_peajes' => $ruta->cantidad_peajes,
+                ];
+            }
+        }
         return \Response::json($rutas);
     }
 
+    public function getRutasNodo($id){
+        $nodo = Nodos::find($id);
+        $rutas = [];
+        foreach ($nodo->rutas as $ruta) {
+            $rutas[] = [
+                'id' => $ruta->id,
+                'origen' => $ruta->origen,
+                'destino' => $ruta->destino,
+            ];
+        }
+        return $rutas;
+    }
     public function showRuta($id){
         $ruta = Rutas::find($id);
         return $ruta;
