@@ -110,7 +110,7 @@
                         }, function () {
                             init();
                         });
-                    }, 2000);
+                    }, 1000);
                 }
                 function error(error) {
                     swal({

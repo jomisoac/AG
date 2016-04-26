@@ -15,7 +15,6 @@
 
         //funciones
         vm.actualizar = actualizar;
-        vm.update = update;
         vm.eliminar = eliminar;
         
         init();
@@ -54,32 +53,19 @@
         }
 
         function actualizar(ruta) {
+            vm.ruta = {}
             vm.ruta = ruta;
-            vm.editMode = true;
-            vm.nombreForm = "Modificar ruta";
+            vm.nombreForm = "Ver ruta "+ ruta.id;
             vm.active = "active";
-            $("#modalNuevoNodo").openModal();
+            vm.editMode = false;
+            $("#modalRutasM").openModal();
         }
 
-
-        function update() {
-            rutasService.put(vm.ruta, vm.ruta.id).then(success, error);
-            function success(p) {
-                $("#modalNuevoNodo").closeModal();
-                vm.editMode = false;
-                init();
-                Materialize.toast('Registro modificado correctamente', 5000);
-            }
-
-            function error(error) {
-                console.log('Error al actualizar');
-            }
-        }
 
         function eliminar(codigo) {
             swal({
                 title: 'ESTAS SEGURO?',
-                text: 'Si eliminas este ruta se eliminaran las rutas asociadas a el!',
+                text: 'Eliminaras esta ruta?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
@@ -102,7 +88,7 @@
                         }, function () {
                             init();
                         });
-                    }, 2000);
+                    }, 1000);
                 }
                 function error(error) {
                     swal({
@@ -116,15 +102,6 @@
             });
         }
 
-        function nuevaRuta(ruta_origen) {
-            vm.ruta = {}
-            vm.ruta = ruta_origen;
-            vm.ruta.id_ruta_origen = ruta_origen.id;
-            vm.nombreForm = "Nueva ruta";
-            vm.active = "active";
-            vm.editMode = false;
-            $("#modalRutas").openModal();
-        }
         
         function guardarRuta() {
             vm.ruta.id_ruta_destino = vm.ruta_destino.id;

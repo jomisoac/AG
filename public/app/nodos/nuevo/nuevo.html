@@ -4,8 +4,11 @@
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
                     <div class="row">
-                        <div class="col s8">
+                        <div class="col s2">
                             <h2><b>Nodos</b></h2>
+                        </div>
+                        <div class="col s6">
+                            <a href="javascript:;" ui-sref="app.mostrar_rutas" class="waves-effect waves-light btn grey">Mostrar rutas</a>
                         </div>
                         <div class="col s4">
                             <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
@@ -90,6 +93,7 @@
 
     <div id="modalRutas" class="modal modal-fixed-footer" style="width: 70%;height:55%;">
         <div class="modal-content">
+            <h2><strong>{{vm.nombreForm}}</strong></h2>
             <form name="formNuevaRuta" class="row">
                 <div class="col s4">
                     <div class="row">

@@ -1,10 +1,7 @@
 <div class="navbar-fixed">
     <nav style="height:60px;line-height: 60px; ">
         <div class="nav-wrapper red accent-4">
-            <a style="float:left;margin-top:10px;margin-left:10px;width:40px; height:40px;border-radius:6px;text-align: center;"
-               class="waves-effect waves-light" onclick="abrirMenu();">
-                <i style="line-height:35px;" class="mdi-navigation-menu"></i>
-            </a>
+            <span> </span>
             <a href="#/" class="brand-logo" style="margin-left:5px;margin-top:10px;">
                 <h2 style="color: white;"><b>ALGORITMO GENETICO</b></h2>
             </a>
@@ -15,86 +12,7 @@
         </div>
     </nav>
 </div>
-<div class="nav-bar" >
-    <ul id="slide-out" class="side-nav fixed" style="width: 220px;margin-top: 60px;">
-        <li class="no-padding" style="background-color: white; width: 220px; position: fixed">
-            <ul>
-                <li id="user">
-                    <div style="text-align:center;padding-top: 30px;padding-left: 10px;" class="center">
-                        <img alt="image" style="border:2px solid red; border-radius: 50%;"
-                             ng-src="http://dev.viajaseguro.co/public/assets/images/profile.jpg" width="110px;" height="110px">
-                    </div>
-                </li>
-            </ul>
-        </li>
-
-        <div class="nav-collapse collapse center" ng-controller="MenuCtrl as vm" style="word-wrap: break-word; margin-top: 235px">
-            <section id="sidebar">
-                <ul id="dock">
-                    <!--<li class="launcher"></li>-->
-                    <li ng-repeat="op in vm.menu" style="border-bottom:1px solid #fff;" ui-sref="{{op.link}}" id="{{op.id}}">
-                        <i style="color: white" class="large material-icons">{{op.icon}}</i>
-                        <span style="color: white">{{op.nombre}}</span>
-                    </li>
-                </ul>
-            </section>
-        </div>
-    </ul>
-</div>
-<div ui-view id="container" style="padding-left:220px; zoom:90%">
+<div ui-view id="container" >
 </div>
 
 
-<script>
-    var abierto;
-    $(document).ready(function () {
-        abierto = true;
-        var alto = $(window).height();
-        document.getElementById('slide-out').style.height = alto - 40 + "px";
-    });
-    function abrirMenu() {
-        if (abierto) {
-            $("#slide-out").animate({"left": "-=220px"}, 300);
-            $("#container").animate({"padding-left": "-=220px"}, 300);
-            abierto = false;
-        } else {
-            abierto = true;
-            $("#slide-out").animate({"left": "+=220px"}, 300);
-            $("#container").animate({"padding-left": "+=220px"}, 300);
-        }
-    }
-</script>
-
-<style type="text/css">
-    #slide-out{
-        background-color: #616161 !important;
-    }
-
-    #user{
-        color: white !important;
-    }
-
-    #sidebar {
-        /*background-color: #2c3e50;*/
-        width: 100%;
-        z-index: 1;
-        text-align: center;
-    }
-    #sidebar ul#dock {
-        margin: -15px 0 0 0;
-        width: 100%;
-        text-align: center;
-        /*color: #ecf0f1;*/
-        background-color: #616161;
-    }
-    #sidebar ul#dock li.launcher {
-        list-style: none;
-        cursor: pointer;
-        background-color: #616161;
-    }
-    #sidebar ul#dock li.launcher>i {
-        display: block;
-        font-size: 2.5em;
-        background-color: #616161;
-    }
-</style>

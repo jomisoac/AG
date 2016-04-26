@@ -9,7 +9,23 @@
         var vm = this;
         vm.nodes = new vis.DataSet([]);
         vm.edges = new vis.DataSet([]);
-        vm.options = {};
+        vm.options = {
+            "edges": {
+                "smooth": {
+                    "forceDirection": "vertical",
+                    "roundness": 1
+                }
+            },
+            "physics": {
+                "forceAtlas2Based": {
+                    "springLength": 100
+                },
+                "maxVelocity": 49,
+                "minVelocity": 0.75,
+                "solver": "forceAtlas2Based"
+            }
+        };
+
         vm.container = document.getElementById('network');
 
         vm.data = {
@@ -24,7 +40,6 @@
             nodes: vm.nodes,
             edges: vm.edges,
             data: vm.data,
-            options: vm.options,
             container: vm.container
         };
 
