@@ -41,6 +41,7 @@
         }
 
         function nuevo() {
+            vm.nodo = {}
             vm.nombreForm = "Nueva nodo";
             vm.active = "";
             vm.editMode = false;
@@ -133,8 +134,17 @@
         }
         
         function guardarRuta() {
-            vm.ruta
             vm.ruta.id_nodo_destino = vm.nodo_destino.id;
+
+            nodosService.postRuta(vm.ruta).then(success, error);
+            function success(p) {
+                $("#modalRutas").closeModal();
+                init();
+                Materialize.toast('Ruta creada correctamente', 5000);
+            }
+            function error(error) {
+                console.log('Error al guardar');
+            }
         }
 
     }

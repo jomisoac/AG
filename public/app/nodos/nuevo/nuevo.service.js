@@ -29,5 +29,9 @@
         this.delete = function (id) {
             return $http.delete(API+'/nodos/' + id);
         }
+
+        this.postRuta = function (object) {
+            return $http.post(API+'/rutas', object);
+        }
     }
 })();

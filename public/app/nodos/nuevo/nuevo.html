@@ -95,7 +95,6 @@
                     <div class="row">
                         <div class="input-field">
                             <i style="color: #D50000"class="material-icons prefix">account_circle</i>
-                            <input type="text" ng-model="vm.ruta.id_nodo_origen" ng-show="false">
                             <input id="nodo_origen" name="nombre" type="text" ng-model="vm.nodo.nombre_nodo"
                                    readonly
                                    required>
@@ -113,7 +112,10 @@
                     </div>
                     <div class="row" ng-hide="vm.editMode">
                         <div class="col s12">
-                            <a class="btn btn-block light-green " href="javascript:;" ng-click="vm.guardarRuta()">Crear ruta</a>
+                            <div ng-hide="vm.editMode">
+                                <a style="border-radius: 25px" class="waves-effect waves-light btn light-green" ng-class="{'disabled': formNuevaRuta.$invalid}"
+                                   ng-click="vm.guardarRuta()">Crear ruta</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,10 +144,6 @@
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red "
                style="margin-left:10px; border-radius: 25px">Salir</a>
-            <div ng-hide="vm.editMode">
-                <a style="border-radius: 25px" class="waves-effect waves-light btn light-green" ng-class="{'disabled': formNuevaRuta.$invalid}"
-                   ng-click="vm.guardarRuta()">Guardar</a>
-            </div>
         </div>
     </div>
 </div>
