@@ -31,7 +31,6 @@
                         vm.rutas.push(p.data[i]);
                     }
                 }
-                console.log(vm.rutas)
             }
 
             function error(error) {

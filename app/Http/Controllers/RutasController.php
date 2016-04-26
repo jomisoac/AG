@@ -54,8 +54,17 @@ class RutasController extends Controller
         return $ruta;
     }
     public function postRuta(Request $request){
-        $ruta = new Rutas($request->all());
-        if ($ruta)
+        $ruta = new Rutas();
+        $ruta->id_nodo_origen = $request['id_nodo_origen'];
+        $ruta->id_nodo_destino = $request['id_nodo_destino'];
+        $ruta->tiempo = $request['tiempo'];
+        $ruta->distancia = $request['distancia'];
+        $ruta->estado_via = $request['estado_via'];
+        $ruta->condiciones_via = $request['condiciones_via'];
+        $ruta->seguridad_via = $request['seguridad_via'];
+        $ruta->tipo_via = $request['tipo_via'];
+        $ruta->cantidad_peajes = $request['cantidad_peajes'];
+        if ($ruta->save())
             return \Response::json('Se guardo correctamente ruta');
         else
             return \Response::json('No se puede guardar la ruta');

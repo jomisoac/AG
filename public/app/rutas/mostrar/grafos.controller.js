@@ -36,7 +36,7 @@
         var network = new vis.Network(vm.container, vm.data, vm.options);
 
         // Definición de Variables para la depuración por Consola
-        var deb = {
+        vm.deb = {
             nodes: vm.nodes,
             edges: vm.edges,
             data: vm.data,
@@ -46,34 +46,30 @@
         // Calculo del Camino mas Corto con Libreria de Dijkstra
         vm.addConexion = function(nodoInicial, nodoFinal, valorDistancia){
             valorDistancia = parseInt(valorDistancia,10);
-            var buscarNodo = $filter('filter')(grafoDijkstra, {origen: nodoInicial });
+            var buscarNodo = $filter('filter')(vm.grafoDijkstra, {origen: nodoInicial });
             if (buscarNodo.length === 0) {
                 var conexion = [];
                 conexion.push({
                     destino: nodoFinal,
                     distancia: valorDistancia
                 });
-                grafoDijkstra.push({origen: nodoInicial, conexiones: conexion });
+                vm.grafoDijkstra.push({origen: nodoInicial, conexiones: conexion });
             }else{
                 buscarNodo[0].conexiones.push({destino: nodoFinal, distancia: valorDistancia});
             }
-
         };
 
         vm.camino = [];
 
         vm.shortestPath = function(){
-            var grafoDijkstra = [];
-            angular.forEach(vm.edges._data, function(value, key){
+            vm.grafoDijkstra = [];
+            angular.forEach(vm.deb.edges, function(value, key){
                 vm.addConexion(value.from, value.to, value.label);
                 vm.addConexion(value.to, value.from, value.label);
             });
 
-            console.log(vm.edges)
-            console.log(deb.edges)
-
             var g = new Graph();
-            angular.forEach(grafoDijkstra, function(value, key){
+            angular.forEach(vm.grafoDijkstra, function(value, key){
                 var enlaces = {};
                 angular.forEach(value.conexiones, function(conexion, i){
                     enlaces[conexion.destino] = conexion.distancia;
@@ -83,7 +79,7 @@
             var i = vm.nodoInicial.id.toString();
             var f = vm.nodoFinal.id.toString();
             console.log(g.shortestPath(i, f).concat(i).reverse());
-            vm.camino = g.shortestPath(i, f).concat(i).reverse();
+            vm.camino = g.shortestPath(i, f).concat(vm.nodoInicial.nombre_nodo).reverse();
         };
 
         init();
@@ -99,7 +95,7 @@
             function success(p) {
                 vm.rutas = p.data;
                 angular.forEach(vm.rutas, function(ruta) {
-                    deb.edges.add({
+                    vm.deb.edges.add({
                         from: ruta.origen_id,
                         to: ruta.destino_id,
                         label: ruta.distancia+ ' Km desde '+ ruta.origen+ ' hasta ' + ruta.destino});
@@ -116,7 +112,7 @@
             function success(p) {
                 vm.nodos = p.data;
                 angular.forEach(vm.nodos, function (nodo) {
-                    deb.nodes.add({
+                    vm.deb.nodes.add({
                         id: nodo.id,
                         label: nodo.nombre_nodo});
                 });
