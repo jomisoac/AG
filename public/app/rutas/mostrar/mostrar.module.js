@@ -11,9 +11,16 @@
             .state('app.mostrar_rutas', {
                 url: '/rutas',
                 templateUrl: 'rutas/mostrar/mostrar.html',
-                onlyAcces: [
-                    'all'
-                ]
+                data: {
+                    onlyAccess: 'all'
+                }
+            })
+            .state('app.mostrar_grafos', {
+                url: '/grafos',
+                templateUrl: 'rutas/mostrar/grafos.html',
+                data: {
+                    onlyAccess: 'all'
+                }
             })
     };
 

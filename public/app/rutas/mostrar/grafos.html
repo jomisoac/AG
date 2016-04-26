@@ -1,0 +1,45 @@
+<div ng-controller="GrafosController as vm" class="contenedor">
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s4">
+                            <h2><b>Rutas</b></h2>
+                        </div>
+                        <div class="col s4">
+                            <a style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green"
+                               ng-click="vm.shortestPath()">DETERMINAR CAMINO OPTIMO</a>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col s6">
+                            <div class="input-field" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                <select class="browser-default" name="selectDestino" id="inicial"
+                                        ng-options="nodo.nombre_nodo for nodo in vm.nodos track by nodo.id"
+                                        ng-model="vm.nodoInicial" required>
+                                    <option value="" disabled selected>Seleccione el nodo inicial</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col s6">
+                            <div class="input-field" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                <select class="browser-default" name="selectDestino" id="destino"
+                                        ng-options="nodo.nombre_nodo for nodo in vm.nodos track by nodo.id"
+                                        ng-model="vm.nodoFinal" required>
+                                    <option value="" disabled selected>Seleccione el nodo final</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div id="network" style="height: 500px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

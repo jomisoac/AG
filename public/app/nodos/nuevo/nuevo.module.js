@@ -11,9 +11,9 @@
             .state('app.nodo_nuevo', {
                 url: '/nodos',
                 templateUrl: 'nodos/nuevo/nuevo.html',
-                onlyAcces: [
-                    'all'
-                ]
+                data: {
+                    onlyAccess: 'all'
+                }
             })
     };
 

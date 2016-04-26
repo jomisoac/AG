@@ -15,12 +15,15 @@ class RutasController extends Controller
     public function getRutas(){
         $tnodos = Nodos::all();
         $rutas = [];
+        $nodos = [];
         foreach ($tnodos as $nodo){
             foreach ($nodo->rutas as $ruta) {
                 $rutas[] = [
                     'id' => $ruta->id,
                     'destino' => $ruta->destino->nombre_nodo,
+                    'destino_id' => $ruta->destino->id,
                     'origen' => $nodo->nombre_nodo,
+                    'origen_id' => $nodo->id,
                     'distancia' => $ruta->distancia,
                     'tiempo' => $ruta->tiempo,
                     'estado_via' => $ruta->estado_via,
