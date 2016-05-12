@@ -23,6 +23,7 @@ Route::group(['middleware' => 'cors'], function () {
 //    rutas
     Route::get('/api/rutas', 'RutasController@getRutas');
     Route::get('/api/rutas/nodo/{nodo_id}', 'RutasController@getRutasNodo');
+    Route::post('/api/rutas/rutaoptima/nodos', 'RutasController@rutaOptima');
     Route::post('/api/rutas', 'RutasController@postRuta');
     Route::delete('/api/rutas/{nodo_id}', 'RutasController@deleteRuta');
 });

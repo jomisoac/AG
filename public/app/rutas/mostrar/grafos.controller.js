@@ -81,14 +81,21 @@
             // console.log(g.shortestPath(i, f).concat(i).reverse());
             vm.caminos = g.shortestPath(i, f).concat(i).reverse();
             console.log(vm.caminos)
-            vm.otrocamino = [];
-            angular.forEach(vm.caminos, function (camino) {
-                nodosService.get(camino).then(function (p) {
-                    vm.otrocamino.push(p.data)
-                }, function (error) {
-                    console.log('Un error', error)
-                });
-            })
+
+            vm.otrocamino = {};
+            rutasService.rutaOptima(vm.caminos).then(function (p) {
+                vm.otrocamino = p.data;
+            }, function (error) {
+                console.log('Un error', error)
+            });
+            // vm.caminos.forEach(function (nodo) {
+            //     nodosService.get(nodo).then(function (p) {
+            //         vm.otrocamino.push(p.data.nombre_nodo);
+            //     }, function (error) {
+            //         console.log('Un error', error)
+            //     });
+            // })
+            console.log(vm.otrocamino)
         };
 
         init();
@@ -107,7 +114,11 @@
                     vm.deb.edges.add({
                         from: ruta.origen_id,
                         to: ruta.destino_id,
-                        label: ruta.distancia+ ' Km desde '+ ruta.origen+ ' hasta ' + ruta.destino});
+                        // label:ruta.f_objetivo,
+                        label: ruta.distancia+ ' Km desde '+ ruta.origen+ ' hasta ' + ruta.destino,
+                        f_objetivo: ruta.f_objetivo
+                    });
+
                 });
             }
 

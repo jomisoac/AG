@@ -25,5 +25,9 @@
         this.delete = function (id) {
             return $http.delete(API+'/rutas/' + id);
         }
+
+        this.rutaOptima = function (object) {
+            return $http.post(API + '/rutas/rutaoptima/nodos', object);
+        }
     }
 })();

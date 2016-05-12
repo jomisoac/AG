@@ -78,4 +78,15 @@ class RutasController extends Controller
         else
             return \Response::json('No se pudo eliminar la ruta');
     }
+    
+    public function rutaOptima(Request $request){
+        $datos = $request->all();
+        $pila = array();
+
+        for($i = 0; $i < count($datos); $i++){
+            $nodo = Nodos::find($datos[$i])->select('nombre_nodo')->where('id', $datos[$i])->first();
+            array_push($pila, $nodo);
+        }
+        return $pila;
+    }
 }
