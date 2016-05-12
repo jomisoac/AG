@@ -136,7 +136,7 @@
         
         function guardarRuta() {
             vm.ruta.id_nodo_destino = vm.nodo_destino.id;
-
+            vm.ruta.f_objetivo = ((vm.ruta.distancia*0.01)+(vm.ruta.tiempo*0.01)+(vm.ruta.cantidad_peajes)+(vm.ruta.estado_via)+(vm.ruta.tipo_via)+(vm.ruta.condiciones_via)+(vm.ruta.seguridad_via));
             nodosService.postRuta(vm.ruta).then(success, error);
             function success(p) {
                 $("#modalRutas").closeModal();

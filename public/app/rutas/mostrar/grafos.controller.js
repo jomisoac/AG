@@ -78,8 +78,17 @@
             });
             var i = vm.nodoInicial.id.toString();
             var f = vm.nodoFinal.id.toString();
-            console.log(g.shortestPath(i, f).concat(i).reverse());
-            vm.camino = g.shortestPath(i, f).concat(vm.nodoInicial.nombre_nodo).reverse();
+            // console.log(g.shortestPath(i, f).concat(i).reverse());
+            vm.caminos = g.shortestPath(i, f).concat(i).reverse();
+            console.log(vm.caminos)
+            vm.otrocamino = [];
+            angular.forEach(vm.caminos, function (camino) {
+                nodosService.get(camino).then(function (p) {
+                    vm.otrocamino.push(p.data)
+                }, function (error) {
+                    console.log('Un error', error)
+                });
+            })
         };
 
         init();

@@ -64,6 +64,7 @@ class RutasController extends Controller
         $ruta->seguridad_via = $request['seguridad_via'];
         $ruta->tipo_via = $request['tipo_via'];
         $ruta->cantidad_peajes = $request['cantidad_peajes'];
+        $ruta->f_objetivo = $request['f_objetivo'];
         if ($ruta->save())
             return \Response::json('Se guardo correctamente ruta');
         else

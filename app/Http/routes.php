@@ -16,6 +16,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'cors'], function () {
 //    nodos
     Route::get('/api/nodos', 'NodosController@getNodos');
+    Route::get('/api/nodos/{nodo_id}', 'NodosController@showNodo');
     Route::post('/api/nodos', 'NodosController@postNodo');
     Route::put('/api/nodos/{nodo_id}', 'NodosController@updateNodo');
     Route::delete('/api/nodos/{nodo_id}', 'NodosController@deleteNodo');
